@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jay & Jer | Memories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Serif for headings, Sans for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #e5e5e5; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        
+        .hero-diagonal-container {
+            position: absolute;
+            inset: -20%;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr); 
+            gap: 2px;
+            transform: rotate(-12deg) scale(1.5);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+            filter: grayscale(1);
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, #050505 80%);
+            z-index: 1;
+        }
+
+        .highlight-card:hover img { transform: scale(1.05); }
+        
+        .fade-in { animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Custom Scrollbar */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+
+        @media (max-width: 768px) {
+
+    .hero-diagonal-container {
+        transform: rotate(-12deg) scale(2);
+        opacity: 0.08;
+    }
+
+    #carousel {
+        gap: 1rem !important;
+    }
+
+    .slide.scale-110 {
+        transform: scale(1.02);
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    h1 {
+        word-break: break-word;
+    }
+}
+    </style>
+</head>
+<body class="selection:bg-white selection:text-black">
+
+    <!-- Hero Page -->
+    <section id="hero-page" class="relative min-h-screen w-full flex flex-col items-center justify-center pt-20 pb-20 overflow-hidden">
+        <div class="hero-diagonal-container">
+            <script>
+                for (let i = 0; i < 144; i++) {
+                    document.write(`<div class="bg-gray-900 overflow-hidden"><img src="pic${(i % 98) + 1}.jpg" class="w-full h-full object-cover opacity-50" onerror="this.src='https://placehold.co/100x100/111/333'"></div>`);
+                }
+            </script>
+        </div>
+        <div class="gradient-overlay"></div>
+
+        <div class="relative z-10 text-center max-w-2xl px-6">
+            <h1 class="text-5xl sm:text-6xl md:text-8xl tracking-tight mb-6 italic">Jay & Jer</h1>
+            <p class="text-gray-400 uppercase tracking-[0.3em] text-xs mb-8">Our Memories</p>
+           <p class="text-base sm:text-lg md:text-2xl font-light italic text-gray-300 leading-relaxed mb-12 px-2">
+                "No matter where life takes us, these moments will always bring us back to each other."
+            </p>
+            <button onclick="showGallery()" class="group px-10 py-4 border border-white/20 hover:border-white transition-all duration-500 uppercase tracking-widest text-sm rounded-full">
+               Memories Together
+            </button>
+        </div>
+
+        <!-- Highlight Moments -->
+        <div class="relative z-10 w-full mt-32 px-6 max-w-xl mx-auto">
+            <h2 class="text-4xl text-center mb-16 text-white/80">Highlight Moments</h2>
+            <div id="highlights-container" class="space-y-16 md:space-y-24">
+                <script>
+                    const highlights = [
+                        { img: 'firstpic.jpg', title: 'Our First Picture', date: 'The Beginning', story: 'The moment it all started.' },
+                        { img: 'month1.jpg', title: '1st Monthsary', date: 'August 11, 2025', story: 'Celebrating our very first month together.' },
+                        { img: 'month2.jpg', title: '2nd Monthsary', date: 'September 11, 2025', story: 'Growing closer every single day.' },
+                        { img: 'fiesta25.jpg', title: 'Fiesta 2025', date: '2025', story: 'Laughter, music, and beautiful memories.' },
+                        { img: 'siete25.jpg', title: 'Siete Palabras 2025', date: '2025', story: 'A solemn, quiet moment shared together.' },
+                        { img: 'siete26.jpg', title: 'Siete Palabras 2026', date: '2026', story: 'A year later, still side-by-side.' },
+                        { img: 'vday25.jpg', title: 'Valentines Day 2025', date: '2025', story: 'Sweet surprises and heart-fluttering moments.' },
+                        { img: 'vday26.jpg', title: 'Valentines Day 2026', date: '2026', story: 'Love that only grows stronger with time.' },
+                        { img: 'jayday25.jpg', title: 'His 19th Birthday', date: 'June 08, 2025', story: 'Celebrating the person who makes me smile.' },
+                        { img: '18th.jpg', title: '18th Birthday Debut', date: 'May 09, 2025', story: 'A night I will never forget.' },
+                        { img: 'jerday26.jpg', title: '19th Birthday', date: 'May 09, 2026', story: 'Another year older, another year wiser.' },
+                        { img: 'beach.jpg', title: 'Beach Day 2025', date: '2025', story: 'Sun, sand, and perfect company.' },
+                        { img: 'yep2024.jpg', title: 'Year End Party 2024', date: '2024', story: 'Closing the year with a beautiful memory.' },
+                        { img: '1anniv.jpg', title: '1st Anniversary', date: 'July 11, 2025', story: 'One year down, forever to go.' }
+                    ];
+
+                    highlights.forEach(h => {
+                        document.write(`
+                            <div class="highlight-card flex flex-col gap-6">
+                                <div class="overflow-hidden rounded-lg aspect-[4/3] bg-gray-900 border border-white/5 max-h-[500px]">
+                                    <img src="${h.img}" class="w-full h-full object-cover transition-transform duration-700" onerror="this.src='https://placehold.co/800x600/111/333?text=Memory'">
+                                </div>
+                                <div class="text-center">
+                                    <h3 class="text-2xl mb-1">${h.title}</h3>
+                                    <p class="text-gray-500 uppercase tracking-widest text-xs mb-3">${h.date}</p>
+                                    <p class="text-gray-400 font-light italic leading-relaxed">${h.story}</p>
+                                </div>
+                            </div>
+                        `);
+                    });
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Page -->
+    <main id="gallery-page" class="hidden min-h-screen p-6 md:p-12">
+       <header class="flex flex-col md:flex-row gap-6 md:gap-0 justify-between items-center mb-16">
+            <button onclick="showHero()" class="text-white/60 hover:text-white uppercase tracking-widest text-xs flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg> Back
+            </button>
+           <h1 class="text-2xl md:text-4xl italic text-center">Proof of Life</h1>
+            <div class="flex gap-4">
+                <button onclick="toggleView('carousel')" class="p-2 border border-white/10 rounded-full hover:bg-white/5"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"/></svg></button>
+                <button onclick="toggleView('grid')" class="p-2 border border-white/10 rounded-full hover:bg-white/5"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zM14 4h6v6h-6V4zM4 14h6v6H4v-6zM14 14h6v6h-6v-6z"/></svg></button>
+            </div>
+        </header>
+
+       <div id="carousel-view" class="relative max-w-6xl mx-auto h-[45vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
+            <button onclick="prevSlide()" class="absolute left-0 z-20 p-4 hover:bg-white/5 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg></button>
+            <div id="carousel" class="flex items-center gap-8 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+            <button onclick="nextSlide()" class="absolute right-0 z-20 p-4 hover:bg-white/5 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+
+       <div id="grid-view" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2"></div>
+    </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 bg-[#050505]/95 z-50 hidden flex items-center justify-center p-4">
+       <button onclick="closeLightbox()" class="absolute top-4 right-4 md:top-8 md:right-8 text-white/50 hover:text-white transition text-sm md:text-base">Close</button>
+        <img id="lightbox-img" src="" class="max-h-[90vh] max-w-full object-contain rounded-sm shadow-2xl">
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const totalSlides = 98;
+        const carousel = document.getElementById('carousel');
+        const gridView = document.getElementById('grid-view');
+
+        function showGallery() {
+            document.getElementById('hero-page').classList.add('hidden');
+            document.getElementById('gallery-page').classList.remove('hidden');
+        }
+
+        function showHero() {
+            document.getElementById('gallery-page').classList.add('hidden');
+            document.getElementById('hero-page').classList.remove('hidden');
+        }
+
+        function toggleView(view) {
+            document.getElementById('carousel-view').classList.toggle('hidden', view !== 'carousel');
+            document.getElementById('grid-view').classList.toggle('hidden', view !== 'grid');
+        }
+
+        function initGallery() {
+            for (let i = 1; i <= totalSlides; i++) {
+                const div = document.createElement('div');
+              div.className = `slide flex-shrink-0 w-56 sm:w-64 md:w-80 h-[350px] sm:h-[420px] md:h-[500px] overflow-hidden rounded-lg cursor-pointer transition-all duration-500 grayscale hover:grayscale-0 opacity-50 hover:opacity-100`;
+                const img = document.createElement('img');
+                img.src = `pic${i}.jpg`;
+                img.className = 'w-full h-full object-cover';
+                img.onerror = function() { this.src = `https://placehold.co/400x600/111/333?text=${i}`; };
+                div.onclick = () => openLightbox(img.src);
+                div.appendChild(img);
+                carousel.appendChild(div);
+
+                const gridImg = document.createElement('img');
+                gridImg.src = `pic${i}.jpg`;
+                gridImg.className = 'aspect-square object-cover hover:scale-105 transition duration-500 cursor-pointer';
+                gridImg.onclick = () => openLightbox(gridImg.src);
+                gridImg.onerror = function() { this.src = `https://placehold.co/400x400/111/333?text=${i}`; };
+                gridView.appendChild(gridImg);
+            }
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, idx) => {
+                slide.classList.toggle('scale-110', idx === currentIndex);
+                slide.classList.toggle('opacity-100', idx === currentIndex);
+                slide.classList.toggle('grayscale-0', idx === currentIndex);
+            });
+           const slideWidth = window.innerWidth < 768 ? 240 : 352;
+carousel.style.transform = `translateX(calc(50% - ${currentIndex * slideWidth + slideWidth / 2}px))`;
+        }
+
+        function nextSlide() { if (currentIndex < totalSlides - 1) { currentIndex++; updateCarousel(); } }
+        function prevSlide() { if (currentIndex > 0) { currentIndex--; updateCarousel(); } }
+        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.remove('hidden'); }
+        function closeLightbox() { document.getElementById('lightbox').classList.add('hidden'); }
+
+        initGallery();
+    </script>
+
+    <!-- Footer -->
+<footer class="border-t border-white/10 mt-24 py-12 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+        
+        <h2 class="text-3xl md:text-4xl italic mb-4 text-white">
+            Jay & Jer
+        </h2>
+
+        <p class="text-gray-400 max-w-xl mx-auto leading-relaxed mb-8">
+            A collection of our favorite moments, memories, and milestones.
+            Every picture tells a story, and every story leads back to us.
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 text-sm uppercase tracking-widest text-gray-500 mb-8">
+            <button onclick="showHero()" class="hover:text-white transition">
+                Home
+            </button>
+            <button onclick="showGallery()" class="hover:text-white transition">
+                Gallery
+            </button>
+        </div>
+
+        <div class="w-24 h-px bg-white/10 mx-auto mb-8"></div>
+
+        <p class="text-gray-600 text-sm">
+            In every photo, a piece of our forever.
+        </p>
+
+       <p class="text-gray-700 text-xs mt-2 tracking-wider uppercase">
+    Jaymark & Jerlyne • A Love Story in Frames
+</p>
+
+</div>
+</footer>
+</body>
+</html>
